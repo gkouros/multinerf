@@ -161,11 +161,11 @@ def save_img_u8(img, pth):
   """Save an image (probably RGB) in [0, 1] to disk as a uint8 PNG."""
   with open_file(pth, 'wb') as f:
     Image.fromarray(
-        (np.clip(np.nan_to_num(img), 0., 1.) * 255.).astype(np.uint8)).save(
+        (np.clip(np.nan_to_num(img), 0., 1.) * 255.).astype(np.uint8).squeeze()).save(
             f, 'PNG')
 
 
 def save_img_f32(depthmap, pth):
   """Save an image (probably a depthmap) to disk as a float32 TIFF."""
   with open_file(pth, 'wb') as f:
-    Image.fromarray(np.nan_to_num(depthmap).astype(np.float32)).save(f, 'TIFF')
+    Image.fromarray(np.nan_to_num(depthmap).astype(np.float32).squeeze()).save(f, 'TIFF')
