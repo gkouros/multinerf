@@ -20,8 +20,8 @@ python -m render \
   --gin_bindings="Config.checkpoint_dir = '${DIR}/logs/$1/$2'" \
   --gin_bindings="Config.render_dir = '${DIR}/logs/$1/$2/render/'" \
   --gin_bindings="Config.render_path = False" \
-  --gin_bindings="Config.render_path_frames = 1" \
-  --gin_bindings="Config.render_video_fps = 1" \
+  --gin_bindings="Config.render_path_frames = 480" \
+  --gin_bindings="Config.render_video_fps = 60" \
   --logtostderr
 
 conda deactivate
