@@ -96,12 +96,14 @@ def create_videos(config, base_dir, out_dir, out_name, num_frames):
 
 
 def main(unused_argv):
-
+  # load configuration parameters
   config = configs.load_config(save_config=False)
 
+  # load test set
   dataset = datasets.load_dataset('test', config.data_dir, config)
 
   key = random.PRNGKey(20200823)
+  # create model
   _, state, render_eval_pfn, _, _ = train_utils.setup_model(config, key)
 
   if config.rawnerf_mode:
@@ -109,10 +111,12 @@ def main(unused_argv):
   else:
     postprocess_fn = lambda z: z
 
+  # restore checkpoint
   state = checkpoints.restore_checkpoint(config.checkpoint_dir, state)
   step = int(state.step)
   print(f'Rendering checkpoint at step {step}.')
 
+  # setup output directories
   out_name = 'path_renders' if config.render_path else 'test_preds'
   out_name = f'{out_name}_step_{step}'
   base_dir = config.render_dir
@@ -137,6 +141,7 @@ def main(unused_argv):
     def save_fn(fn, *args, **kwargs):
       fn(*args, **kwargs)
 
+  # iterate over entire dataset and save rendered rgb, normals, etc.
   for idx in range(dataset.size):
     if idx % config.render_num_jobs != config.render_job_id:
       continue
@@ -176,6 +181,9 @@ def main(unused_argv):
         path_fn(f'distance_median_{idx_str}.tiff'))
     save_fn(
         utils.save_img_f32, rendering['acc'], path_fn(f'acc_{idx_str}.tiff'))
+    save_fn(
+        utils.save_img_u8, rendering['roughness'], path_fn(f'rho_{idx_str}.png'),
+        mask=rendering['acc'])
 
   if config.render_save_async:
     # Wait until all worker threads finish.
