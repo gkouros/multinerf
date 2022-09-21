@@ -13,14 +13,15 @@ conda activate multinerf
 DIR=/users/visics/gkouros/projects/nerf-repos/multinerf/
 cd ${DIR}
 
-TF_FORCE_GPU_ALLOW_GROWTH='true' python -m render \
+# TF_FORCE_GPU_ALLOW_GROWTH='true' 
+python -m render \
   --gin_configs=configs/blender_refnerf.gin \
   --gin_bindings="Config.data_dir = '${DATA_DIR}'" \
   --gin_bindings="Config.checkpoint_dir = '${DIR}/logs/$1/$2'" \
   --gin_bindings="Config.render_dir = '${DIR}/logs/$1/$2/render/'" \
   --gin_bindings="Config.render_path = False" \
-  --gin_bindings="Config.render_path_frames = 480" \
-  --gin_bindings="Config.render_video_fps = 60" \
+  --gin_bindings="Config.render_path_frames = 1" \
+  --gin_bindings="Config.render_video_fps = 1" \
   --logtostderr
 
 conda deactivate

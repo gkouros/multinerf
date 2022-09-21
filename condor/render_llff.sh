@@ -13,7 +13,8 @@ conda activate multinerf
 DIR=/users/visics/gkouros/projects/nerf-repos/multinerf/
 cd ${DIR}
 
-TF_FORCE_GPU_ALLOW_GROWTH='true' python -m render \
+# TF_FORCE_GPU_ALLOW_GROWTH='true'
+python -m render \
   --gin_configs=configs/llff_refnerf.gin \
   --gin_bindings="Config.data_dir = '${DATA_DIR}'" \
   --gin_bindings="Config.checkpoint_dir = '${DIR}/logs/$1/$2'" \
