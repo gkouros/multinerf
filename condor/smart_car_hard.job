@@ -2,16 +2,16 @@ Universe = vanilla
 
 RequestCpus = 4
 Request_GPUs = 1
-RequestMemory = 12Gb
+RequestMemory = 20Gb
 +RequestWalltime = 259000
 
-Requirements = (CUDACapability >= 7.0)&&(CUDAGlobalMemoryMb >= 15000.0)&&(machine != "andromeda.esat.kuleuven.be")&&(machine != "aristoteles.esat.kuleuven.be")&&(machine != "fig.esat.kuleuven.be")
+Requirements = (CUDACapability >= 7.0)&&(CUDAGlobalMemoryMb >= 80000.0)&&(machine != "andromeda.esat.kuleuven.be")
 
 Initialdir = /users/visics/gkouros/projects/nerf-repos/multinerf/condor
 Executable = /users/visics/gkouros/projects/nerf-repos/multinerf/condor/train_blender.sh
-Arguments = smart_car/hard $(Cluster)
+Arguments = smart_car/hard 13744
 
-NiceUser = false
+NiceUser = true
 
 Log    =  ../logs/smart_car/hard/exp.$(Cluster).log
 Output =  ../logs/smart_car/hard/exp.$(Cluster).out

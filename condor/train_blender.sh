@@ -24,7 +24,7 @@ XLA_PYTHON_CLIENT_ALLOCATOR=platform TF_FORCE_GPU_ALLOW_GROWTH='true' python3 tr
     --gin_bindings="Config.data_dir = '${DATA_DIR}'" \
     --gin_bindings="Config.checkpoint_dir = '${DIR}/logs/$1/$2'" \
     --gin_bindings="Config.render_dir = '${DIR}/logs/$1/$2/render/'" \
-    --gin_bindings="Config.render_path = False" \
+    --gin_bindings="Config.render_path = True" \
     --gin_bindings="Config.render_path_frames = 480" \
     --gin_bindings="Config.render_video_fps = 60" \
     --logtostderr
